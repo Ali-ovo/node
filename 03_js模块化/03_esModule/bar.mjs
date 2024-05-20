@@ -10,4 +10,4 @@ function getInfo() {
 }
 
 // 这里 大括号 不是一个对象 而且放置变量的引用列表
-export { name, age, changeAge, getInfo }
+// export { name, age, changeAge, getInfo }
