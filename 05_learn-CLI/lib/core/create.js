@@ -1,4 +1,4 @@
-const { createProjectAction } = require('./actions')
+const { createProjectAction } = require('./actions.js')
 
 const createCommands = (program) => {
   program
