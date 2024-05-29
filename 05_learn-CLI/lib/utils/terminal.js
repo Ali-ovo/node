@@ -19,5 +19,5 @@ const commandSpawn = (...args) => {
 
 module.exports = {
   spawn,
-  commandSpawn
+  commandSpawn,
 }

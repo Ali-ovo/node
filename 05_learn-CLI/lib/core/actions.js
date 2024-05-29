@@ -1,10 +1,12 @@
 const { promisify } = require('util')
+const path = require('path')
 
 const download = promisify(require('download-git-repo'))
 const open = require('open')
 
-const { vueRepo } = require('./config/repo-config')
+const { vueRepo } = require('../config/repo-config')
 const { commandSpawn } = require('../utils/terminal')
+const { compile, writeToFile, createDirSync } = require('../utils/utils')
 
 const createProjectAction = async (project) => {
   // 1. clone 项目
@@ -21,4 +23,17 @@ const createProjectAction = async (project) => {
   open('http://localhost:4173')
 }
 
-module.exports = { createProjectAction }
+// 添加组件
+const addCpmAction = async (name, dest) => {
+  // 1. 编译ejs模板 result
+  const result = await compile('vue-component.ejs', { name, lowerName: name.toLowerCase() }, `${name}.vue`, dest)
+
+  // 2. 写入文件
+  // 判断生成目录文件
+  if (createDirSync(dest)) {
+    const targetPath = path.resolve(dest, `${name}.vue`)
+    writeToFile(targetPath, result)
+  }
+}
+
+module.exports = { createProjectAction, addCpmAction }
